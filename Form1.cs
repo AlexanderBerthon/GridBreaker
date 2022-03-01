@@ -3,5 +3,11 @@ namespace GridBreaker {
         public Form1() {
             InitializeComponent();
         }
+
+
+        private void grid_Click(object sender, EventArgs e) {
+
+        }
+
     }
 }
