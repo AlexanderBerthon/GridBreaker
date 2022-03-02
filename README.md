@@ -9,6 +9,10 @@
       <ul>Create UI / gameboard design</s></ul>
       <ul>Implement gameboard front end (button grid / layout / etc.)</s></ul>
       <ul>Gameplay
+        <ul><s>click action (destroy)</s></ul>
+        <ul><s>adjust function</s></ul>
+        <ul>repopulate function</ul>
+        <ul>random game board population?</ul>
   </section>
 
   <section>
