@@ -15,7 +15,7 @@ namespace GridBreaker {
         //global variables :(
         Button[] btnArray = new Button[100];
         Random random = new Random();
-        int count = 50;
+        int count = 30;
 
 
         public Form1() {
@@ -38,19 +38,24 @@ namespace GridBreaker {
                     case 10: btn.BackColor = Color.Yellow; break;
                 }
             }
+
+            label1.Text = "Refill in: " + ((count % 3)+3)+" moves";
+            label2.Text = count / 3 + "Refills remaining";
         }
 
 
         private void grid_Click(object sender, EventArgs e) {
-
-
-
-            count--;
             Button clicked = (Button)sender;
             destroy(clicked);
             adjust();
-            if (count > 0 && count%5 == 0) {
-                repopulate();
+            if (count >= 0) {
+                count--;
+                label1.Text = "Refill in: " + count % 3 + " moves";
+                if (count%3 == 0) {
+                    repopulate();
+                    label1.Text = "Refill in: " + ((count % 3) + 3) + " moves";
+                    label2.Text = count / 3 + " Refills remaining";
+                }
             }
         }
 
@@ -103,25 +108,25 @@ namespace GridBreaker {
             }
         }
 
-        private void repopulate() {
+        private void repopulate_old() {
             Boolean populating = true;
             while (populating) {
                 populating = false;
-                foreach (Button btn in btnArray) {
-                    if (btn.BackColor == Color.White) {
+                for(int i = btnArray.Length-1; i>=0; i--) {
+                    if (btnArray[i].BackColor == Color.White) {
                         populating = true;
                         int color = random.Next(1, 11);
                         switch (color) {
-                            case 1: btn.BackColor = Color.Red; break;
-                            case 2: btn.BackColor = Color.Red; break;
-                            case 3: btn.BackColor = Color.Red; break;
-                            case 4: btn.BackColor = Color.Green; break;
-                            case 5: btn.BackColor = Color.Green; break;
-                            case 6: btn.BackColor = Color.Green; break;
-                            case 7: btn.BackColor = Color.Blue; break;
-                            case 8: btn.BackColor = Color.Blue; break;
-                            case 9: btn.BackColor = Color.Blue; break;
-                            case 10: btn.BackColor = Color.Yellow; break;
+                            case 1: btnArray[i].BackColor = Color.Red; break;
+                            case 2: btnArray[i].BackColor = Color.Red; break;
+                            case 3: btnArray[i].BackColor = Color.Red; break;
+                            case 4: btnArray[i].BackColor = Color.Green; break;
+                            case 5: btnArray[i].BackColor = Color.Green; break;
+                            case 6: btnArray[i].BackColor = Color.Green; break;
+                            case 7: btnArray[i].BackColor = Color.Blue; break;
+                            case 8: btnArray[i].BackColor = Color.Blue; break;
+                            case 9: btnArray[i].BackColor = Color.Blue; break;
+                            case 10: btnArray[i].BackColor = Color.Yellow; break;
                         }
                     }
                 }
@@ -129,7 +134,7 @@ namespace GridBreaker {
         }
 
 
-        private void repopulate_Old() {
+        private void repopulate() {
             for (int i = 0; i < 10; i++) {
                 int color = random.Next(1, 11);
                 switch (color) {
