@@ -26,21 +26,21 @@ namespace GridBreaker {
             foreach(Button btn in btnArray) {
                 int color = random.Next(1, 11);
                 switch (color) {
-                    case 1: btn.BackColor = Color.Red; break;
-                    case 2: btn.BackColor = Color.Red; break;
-                    case 3: btn.BackColor = Color.Red; break;
-                    case 4: btn.BackColor = Color.Green; break;
-                    case 5: btn.BackColor = Color.Green; break;
-                    case 6: btn.BackColor = Color.Green; break;
-                    case 7: btn.BackColor = Color.Blue; break;
-                    case 8: btn.BackColor = Color.Blue; break;
-                    case 9: btn.BackColor = Color.Blue; break;
-                    case 10: btn.BackColor = Color.Yellow; break;
+                    case 1: btn.BackColor = Color.DarkOrange; break;
+                    case 2: btn.BackColor = Color.DarkOrange; break;
+                    case 3: btn.BackColor = Color.DarkOrange; break;
+                    case 4: btn.BackColor = Color.DarkGreen; break;
+                    case 5: btn.BackColor = Color.DarkGreen; break;
+                    case 6: btn.BackColor = Color.DarkGreen; break;
+                    case 7: btn.BackColor = Color.Firebrick; break;
+                    case 8: btn.BackColor = Color.Firebrick; break;
+                    case 9: btn.BackColor = Color.Firebrick; break;
+                    case 10: btn.BackColor = Color.BlueViolet; break;
                 }
             }
 
             label1.Text = "Refill in: " + ((count % 3)+3)+" moves";
-            label2.Text = count / 3 + "Refills remaining";
+            label2.Text = count / 3 + " Refills remaining";
         }
 
 
@@ -66,14 +66,18 @@ namespace GridBreaker {
             //check left
             try {
                 if (btnArray[cell.TabIndex - 1].BackColor.ToString() == color) {
-                    destroy(btnArray[cell.TabIndex - 1]);
+                    if (btnArray[cell.TabIndex - 1].Location.Y == cell.Location.Y) {
+                        destroy(btnArray[cell.TabIndex - 1]);
+                    }
                 }
             }
             catch (IndexOutOfRangeException e) {}
             //check right
             try {
-            if (btnArray[cell.TabIndex + 1].BackColor.ToString() == color) {
-                    destroy(btnArray[cell.TabIndex + 1]);
+                if (btnArray[cell.TabIndex + 1].BackColor.ToString() == color) {
+                    if (btnArray[cell.TabIndex + 1].Location.Y == cell.Location.Y) {
+                        destroy(btnArray[cell.TabIndex + 1]);
+                    }
                 }
             }
             catch (IndexOutOfRangeException e) {}
@@ -117,16 +121,16 @@ namespace GridBreaker {
                         populating = true;
                         int color = random.Next(1, 11);
                         switch (color) {
-                            case 1: btnArray[i].BackColor = Color.Red; break;
-                            case 2: btnArray[i].BackColor = Color.Red; break;
-                            case 3: btnArray[i].BackColor = Color.Red; break;
-                            case 4: btnArray[i].BackColor = Color.Green; break;
-                            case 5: btnArray[i].BackColor = Color.Green; break;
-                            case 6: btnArray[i].BackColor = Color.Green; break;
-                            case 7: btnArray[i].BackColor = Color.Blue; break;
-                            case 8: btnArray[i].BackColor = Color.Blue; break;
-                            case 9: btnArray[i].BackColor = Color.Blue; break;
-                            case 10: btnArray[i].BackColor = Color.Yellow; break;
+                            case 1: btnArray[i].BackColor = Color.DarkOrange; break;
+                            case 2: btnArray[i].BackColor = Color.DarkOrange; break;
+                            case 3: btnArray[i].BackColor = Color.DarkOrange; break;
+                            case 4: btnArray[i].BackColor = Color.DarkGreen; break;
+                            case 5: btnArray[i].BackColor = Color.DarkGreen; break;
+                            case 6: btnArray[i].BackColor = Color.DarkGreen; break;
+                            case 7: btnArray[i].BackColor = Color.Firebrick; break;
+                            case 8: btnArray[i].BackColor = Color.Firebrick; break;
+                            case 9: btnArray[i].BackColor = Color.Firebrick; break;
+                            case 10: btnArray[i].BackColor = Color.BlueViolet; break;
                         }
                     }
                 }
@@ -138,16 +142,16 @@ namespace GridBreaker {
             for (int i = 0; i < 10; i++) {
                 int color = random.Next(1, 11);
                 switch (color) {
-                    case 1: btnArray[i].BackColor = Color.Red; break;
-                    case 2: btnArray[i].BackColor = Color.Red; break;
-                    case 3: btnArray[i].BackColor = Color.Red; break;
-                    case 4: btnArray[i].BackColor = Color.Green; break;
-                    case 5: btnArray[i].BackColor = Color.Green; break;
-                    case 6: btnArray[i].BackColor = Color.Green; break;
-                    case 7: btnArray[i].BackColor = Color.Blue; break;
-                    case 8: btnArray[i].BackColor = Color.Blue; break;
-                    case 9: btnArray[i].BackColor = Color.Blue; break;
-                    case 10: btnArray[i].BackColor = Color.Yellow; break;
+                    case 1: btnArray[i].BackColor = Color.DarkOrange; break;
+                    case 2: btnArray[i].BackColor = Color.DarkOrange; break;
+                    case 3: btnArray[i].BackColor = Color.DarkOrange; break;
+                    case 4: btnArray[i].BackColor = Color.DarkGreen; break;
+                    case 5: btnArray[i].BackColor = Color.DarkGreen; break;
+                    case 6: btnArray[i].BackColor = Color.DarkGreen; break;
+                    case 7: btnArray[i].BackColor = Color.Firebrick; break;
+                    case 8: btnArray[i].BackColor = Color.Firebrick; break;
+                    case 9: btnArray[i].BackColor = Color.Firebrick; break;
+                    case 10: btnArray[i].BackColor = Color.BlueViolet; break;
                 }
             }
 
