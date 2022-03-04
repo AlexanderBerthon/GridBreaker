@@ -15,7 +15,7 @@ namespace GridBreaker {
         //global variables :(
         Button[] btnArray = new Button[100];
         Random random = new Random();
-        int count = 30;
+        int count = 20;
 
 
         public Form1() {
@@ -39,22 +39,24 @@ namespace GridBreaker {
                 }
             }
 
-            label1.Text = "Refill in: " + ((count % 3)+3)+" moves";
-            label2.Text = count / 3 + " Refills remaining";
+            label1.Text = "Refill in: " + ((count % 2)+2)+" moves";
+            label2.Text = count / 2 + " Refills remaining";
         }
 
 
         private void grid_Click(object sender, EventArgs e) {
             Button clicked = (Button)sender;
-            destroy(clicked);
-            adjust();
-            if (count >= 0) {
-                count--;
-                label1.Text = "Refill in: " + count % 3 + " moves";
-                if (count%3 == 0) {
-                    repopulate();
-                    label1.Text = "Refill in: " + ((count % 3) + 3) + " moves";
-                    label2.Text = count / 3 + " Refills remaining";
+            if (clicked.BackColor != Color.White) {
+                destroy(clicked);
+                adjust();
+                if (count >= 0) {
+                    count--;
+                    label1.Text = "Refill in: " + count % 2 + " moves";
+                    if (count % 2 == 0) {
+                        repopulate();
+                        label1.Text = "Refill in: " + ((count % 2) + 2) + " moves";
+                        label2.Text = count / 2 + " Refills remaining";
+                    }
                 }
             }
         }
@@ -71,7 +73,7 @@ namespace GridBreaker {
                     }
                 }
             }
-            catch (IndexOutOfRangeException e) {}
+            catch (IndexOutOfRangeException e) { }
             //check right
             try {
                 if (btnArray[cell.TabIndex + 1].BackColor.ToString() == color) {
@@ -80,17 +82,17 @@ namespace GridBreaker {
                     }
                 }
             }
-            catch (IndexOutOfRangeException e) {}
+            catch (IndexOutOfRangeException e) { }
             try {
-            //check up
-            if (btnArray[cell.TabIndex - 10].BackColor.ToString() == color) {
+                //check up
+                if (btnArray[cell.TabIndex - 10].BackColor.ToString() == color) {
                     destroy(btnArray[cell.TabIndex - 10]);
                 }
             }
             catch (IndexOutOfRangeException e) { }
             //check down
             try {
-            if (btnArray[cell.TabIndex + 10].BackColor.ToString() == color) {
+                if (btnArray[cell.TabIndex + 10].BackColor.ToString() == color) {
                     destroy(btnArray[cell.TabIndex + 10]);
                 }
             }
