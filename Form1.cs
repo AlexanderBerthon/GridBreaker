@@ -11,12 +11,25 @@ namespace GridBreaker {
     /// or negative points?
     /// </summary>
 
+
+    /// todo
+    /// 30s timer
+    /// points
+    /// negative points for 1 or 2 blocks
+    /// neutral points for 3 blocks
+    /// multiplicitive points for larger chains
+    /// -3
+    /// +1 pt each tile
+    /// multiply at the end by 1.5 and round up?
+
+
     public partial class Form1 : Form {
         //global variables :(
         Button[] btnArray = new Button[100];
         Random random = new Random();
         int count = 20;
-
+        int totalpoints = 0;
+        int turnPoints = 0;
 
         public Form1() {
             InitializeComponent();
@@ -48,6 +61,9 @@ namespace GridBreaker {
             Button clicked = (Button)sender;
             if (clicked.BackColor != Color.White) {
                 destroy(clicked);
+                totalpoints += turnPoints;
+                turnPoints = 0;
+                label3.Text = totalpoints.ToString();
                 adjust();
                 if (count >= 0) {
                     count--;
@@ -62,6 +78,8 @@ namespace GridBreaker {
         }
 
         private void destroy(Button cell) {
+            turnPoints += 1;
+            turnPoints = (int)Math.Floor(turnPoints * 1.5);
             String color = cell.BackColor.ToString();
             cell.BackColor = Color.White;
             this.Refresh();
@@ -162,3 +180,4 @@ namespace GridBreaker {
 
     }
 }
+
