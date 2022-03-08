@@ -13,15 +13,7 @@ namespace GridBreaker {
 
 
     /// todo
-    /// 30s timer
-    /// points
-    /// negative points for 1 or 2 blocks
-    /// neutral points for 3 blocks
-    /// multiplicitive points for larger chains
-    /// -3
-    /// +1 pt each tile
-    /// multiply at the end by 1.5 and round up?
-
+    /// 30s timer? 
 
     public partial class Form1 : Form {
         //global variables :(
@@ -31,8 +23,46 @@ namespace GridBreaker {
         int totalpoints = 0;
         int turnPoints = 0;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+        int clock = 30;
+
+
+
+        private void TimerEventProcessor(Object anObject, EventArgs eventArgs) {
+            clock--;
+            if (clock <= 0) {
+                timer.Stop();
+
+                for (int i = 0; i < btnArray.Length; i++) {
+                    btnArray[i].Enabled = false;
+                }
+                this.Refresh();
+            }
+            else {
+                //reset event clock
+                timer.Stop();
+                timer.Start();
+            }
+
+            if (clock % 60 < 10) {
+                label4.Text = clock / 60 + ":0" + clock % 60;
+            }
+            else {
+                label4.Text = clock / 60 + ":" + clock % 60;
+            }
+        }
+
+
+
+
+
+
+
         public Form1() {
             InitializeComponent();
+            timer.Interval = 1000;
+            timer.Start();
+            timer.Tick += new EventHandler(TimerEventProcessor);
             flowLayoutPanel1.Controls.CopyTo(btnArray, 0);
 
             //randomly iterate through all buttons and assign them a random color?
@@ -63,7 +93,7 @@ namespace GridBreaker {
                 destroy(clicked);
                 totalpoints += turnPoints;
                 turnPoints = 0;
-                label3.Text = totalpoints.ToString();
+                label3.Text = "Score: "+totalpoints.ToString();
                 adjust();
                 if (count >= 0) {
                     count--;
