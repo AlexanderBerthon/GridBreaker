@@ -1,20 +1,12 @@
 namespace GridBreaker {
 
     /// <summary>
-    /// goal of the game is to get as many points as possible in the given turns you have
-    /// the board will repopulate cells a limited number of times
-    /// to get the most points, the player has to plan ahead to try to completely clear the board
-    /// bonus points the larger the chain?
-    /// negative points for left over boxes?
-    /// is there a way to prevent user from clicking combo's less than 3?
-    /// or maybe just offer low points
-    /// or negative points?
+    /// goal of the game is to get as many points as possible within 30 seconds
+    /// The grid will drop in new cells every 2 turns but only up to 10 times
+    /// the number of points you get scales exponentially with the number of cells you combo together
+    /// to get the highest score, a player must balance speed and strategy
+    /// Aim for large combos but act quickly to utilize free refills and time limit 
     /// </summary>
-
-
-    /// todo
-    /// 30s timer? 
-
     public partial class Form1 : Form {
         //global variables :(
         Button[] btnArray = new Button[100];
@@ -26,8 +18,11 @@ namespace GridBreaker {
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int clock = 30;
 
-
-
+        /// <summary>
+        /// Function that controls the timer
+        /// </summary>
+        /// <param name="anObject"></param> The timer object
+        /// <param name="eventArgs"></param> The timer interval event
         private void TimerEventProcessor(Object anObject, EventArgs eventArgs) {
             clock--;
             if (clock <= 0) {
@@ -52,12 +47,9 @@ namespace GridBreaker {
             }
         }
 
-
-
-
-
-
-
+        /// <summary>
+        /// Form initialization. Initializes timer, button controls, and randomly creates the initial gameplay grid. 
+        /// </summary>
         public Form1() {
             InitializeComponent();
             timer.Interval = 1000;
@@ -86,7 +78,21 @@ namespace GridBreaker {
             label2.Text = count / 2 + " Refills remaining";
         }
 
-
+        /// <summary>
+        /// Button click event function.
+        /// 
+        /// This function is responsible for the majority of the gameplay logic and control
+        /// 
+        /// On click the function will check for valid input before calling the necessary helper functions.
+        /// 
+        /// Good input will call the recursive destroy function to process the player move,
+        /// then clean up the board by dropping cells into any empty spaces created by the destroy function
+        /// 
+        /// Also contains control for the repopulate/refill function 
+        /// by tracking the number of turns that have occured and refilling as needed
+        /// </summary>
+        /// <param name="sender"></param> Button object
+        /// <param name="e"></param> Button click event
         private void grid_Click(object sender, EventArgs e) {
             Button clicked = (Button)sender;
             if (clicked.BackColor != Color.White) {
@@ -107,6 +113,13 @@ namespace GridBreaker {
             }
         }
 
+        /// <summary>
+        /// Recursive function responsible for clearing matching cells
+        /// When a player clicks a colored cell on the grid, this function will check all adjacent cells
+        /// Cells that match will be marked for deletion and similarly run through this function, checking those cells for matches as well.
+        /// This creates a chain reaction that will destroy all matching adjacent tiles
+        /// </summary>
+        /// <param name="cell"></param> button cell to be compared
         private void destroy(Button cell) {
             turnPoints += 1;
             turnPoints = (int)Math.Floor(turnPoints * 1.5);
@@ -131,8 +144,8 @@ namespace GridBreaker {
                 }
             }
             catch (IndexOutOfRangeException e) { }
+            //check up
             try {
-                //check up
                 if (btnArray[cell.TabIndex - 10].BackColor.ToString() == color) {
                     destroy(btnArray[cell.TabIndex - 10]);
                 }
@@ -147,6 +160,10 @@ namespace GridBreaker {
             catch (IndexOutOfRangeException e) { }
         }
 
+        /// <summary>
+        /// Function responsible for filling in holes in the grid caused by the destroy function
+        /// moves cells down one if the cell below is empty, simulates gravity
+        /// </summary>
         private void adjust() {
             Boolean moving = true;
             while (moving) {
@@ -162,32 +179,12 @@ namespace GridBreaker {
             }
         }
 
-        private void repopulate_old() {
-            Boolean populating = true;
-            while (populating) {
-                populating = false;
-                for(int i = btnArray.Length-1; i>=0; i--) {
-                    if (btnArray[i].BackColor == Color.White) {
-                        populating = true;
-                        int color = random.Next(1, 11);
-                        switch (color) {
-                            case 1: btnArray[i].BackColor = Color.DarkOrange; break;
-                            case 2: btnArray[i].BackColor = Color.DarkOrange; break;
-                            case 3: btnArray[i].BackColor = Color.DarkOrange; break;
-                            case 4: btnArray[i].BackColor = Color.DarkGreen; break;
-                            case 5: btnArray[i].BackColor = Color.DarkGreen; break;
-                            case 6: btnArray[i].BackColor = Color.DarkGreen; break;
-                            case 7: btnArray[i].BackColor = Color.Firebrick; break;
-                            case 8: btnArray[i].BackColor = Color.Firebrick; break;
-                            case 9: btnArray[i].BackColor = Color.Firebrick; break;
-                            case 10: btnArray[i].BackColor = Color.BlueViolet; break;
-                        }
-                    }
-                }
-            }
-        }
-
-
+        /// <summary>
+        /// Function responsible for the refill mechaninc
+        /// randomly assigns colored cells to the top row when called
+        /// these cells remain in the top row for one turn, before ajust is called to give the player a chance to react
+        /// to the new incoming cells
+        /// </summary>
         private void repopulate() {
             for (int i = 0; i < 10; i++) {
                 int color = random.Next(1, 11);
