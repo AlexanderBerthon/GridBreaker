@@ -1,3 +1,7 @@
+/// BUGS
+/// "refill in -1 turns"
+///     
+/// 
 namespace GridBreaker {
 
     /// <summary>
@@ -31,6 +35,9 @@ namespace GridBreaker {
                 for (int i = 0; i < btnArray.Length; i++) {
                     btnArray[i].Enabled = false;
                 }
+
+                GameOverPanel.Visible = true;
+                FinalScore.Text = totalpoints.ToString();
                 this.Refresh();
             }
             else {
@@ -203,8 +210,56 @@ namespace GridBreaker {
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContinueButton_Click(object sender, EventArgs e) {
+            GameOverPanel.Visible = false;
 
+            for (int i = 0; i < btnArray.Length; i++) {
+                btnArray[i].Enabled = true;
+            }
 
+            count = 20;
+            totalpoints = 0;
+            turnPoints = 0;
+            clock = 30;
+
+            label1.Text = "Refill in: " + ((count % 2) + 2) + " moves";
+            label2.Text = count / 2 + " Refills remaining";
+            label3.Text = "0:30";
+            label4.Text = "Score: 0";
+
+            //randomly iterate through all buttons and assign them a random color?
+            foreach (Button btn in btnArray) {
+                int color = random.Next(1, 11);
+                switch (color) {
+                    case 1: btn.BackColor = Color.DarkOrange; break;
+                    case 2: btn.BackColor = Color.DarkOrange; break;
+                    case 3: btn.BackColor = Color.DarkOrange; break;
+                    case 4: btn.BackColor = Color.DarkGreen; break;
+                    case 5: btn.BackColor = Color.DarkGreen; break;
+                    case 6: btn.BackColor = Color.DarkGreen; break;
+                    case 7: btn.BackColor = Color.Firebrick; break;
+                    case 8: btn.BackColor = Color.Firebrick; break;
+                    case 9: btn.BackColor = Color.Firebrick; break;
+                    case 10: btn.BackColor = Color.BlueViolet; break;
+                }
+            }
+
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Exits the application when the button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExitButton_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
     }
 }
 
