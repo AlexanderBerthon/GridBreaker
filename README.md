@@ -5,14 +5,14 @@
     I don't remember the name of the game, but this project will attempt to recreate it.</h2>
   </section>
   <section>
-    <ul>To Do for MVP:
-      <ul>Create UI / gameboard design</s></ul>
-      <ul>Implement gameboard front end (button grid / layout / etc.)</s></ul>
-      <ul>Gameplay
+    <ul><s>To Do for MVP:</s>
+      <ul><s>Create UI / gameboard design</s></ul>
+      <ul><s>Implement gameboard front end (button grid / layout / etc.)</s></ul>
+      <ul><s>Gameplay</s>
         <ul><s>click action (destroy)</s></ul>
         <ul><s>adjust function</s></ul>
-        <ul>repopulate function</ul>
-        <ul>random game board population?</ul>
+        <ul><s>repopulate function</s></ul>
+        <ul><s>random game board population</s></ul>
   </section>
 
   <section>
