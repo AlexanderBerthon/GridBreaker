@@ -1650,7 +1650,7 @@
             // FinalScore
             // 
             this.FinalScore.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FinalScore.Font = new System.Drawing.Font("Vladimir Script", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FinalScore.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FinalScore.Location = new System.Drawing.Point(0, 60);
             this.FinalScore.Name = "FinalScore";
             this.FinalScore.Size = new System.Drawing.Size(200, 23);
@@ -1661,20 +1661,20 @@
             // PlayAgainLabel
             // 
             this.PlayAgainLabel.AutoSize = true;
-            this.PlayAgainLabel.Font = new System.Drawing.Font("Showcard Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PlayAgainLabel.Location = new System.Drawing.Point(48, 88);
+            this.PlayAgainLabel.Font = new System.Drawing.Font("Zilla Slab", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PlayAgainLabel.Location = new System.Drawing.Point(54, 88);
             this.PlayAgainLabel.Name = "PlayAgainLabel";
-            this.PlayAgainLabel.Size = new System.Drawing.Size(109, 20);
+            this.PlayAgainLabel.Size = new System.Drawing.Size(89, 19);
             this.PlayAgainLabel.TabIndex = 4;
             this.PlayAgainLabel.Text = "Play Again?";
             // 
             // FinalScoreLabel
             // 
             this.FinalScoreLabel.AutoSize = true;
-            this.FinalScoreLabel.Font = new System.Drawing.Font("Showcard Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FinalScoreLabel.Location = new System.Drawing.Point(45, 35);
+            this.FinalScoreLabel.Font = new System.Drawing.Font("Zilla Slab", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FinalScoreLabel.Location = new System.Drawing.Point(54, 35);
             this.FinalScoreLabel.Name = "FinalScoreLabel";
-            this.FinalScoreLabel.Size = new System.Drawing.Size(115, 20);
+            this.FinalScoreLabel.Size = new System.Drawing.Size(94, 19);
             this.FinalScoreLabel.TabIndex = 3;
             this.FinalScoreLabel.Text = "Final Score: ";
             // 
@@ -1682,7 +1682,7 @@
             // 
             this.ExitButton.BackColor = System.Drawing.Color.Firebrick;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitButton.Font = new System.Drawing.Font("Showcard Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ExitButton.Font = new System.Drawing.Font("Zilla Slab", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ExitButton.Location = new System.Drawing.Point(115, 115);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
@@ -1695,7 +1695,7 @@
             // 
             this.ContinueButton.BackColor = System.Drawing.Color.DarkGreen;
             this.ContinueButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ContinueButton.Font = new System.Drawing.Font("Showcard Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ContinueButton.Font = new System.Drawing.Font("Zilla Slab", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ContinueButton.Location = new System.Drawing.Point(10, 115);
             this.ContinueButton.Name = "ContinueButton";
             this.ContinueButton.Size = new System.Drawing.Size(75, 23);
@@ -1707,10 +1707,10 @@
             // GameOverLabel
             // 
             this.GameOverLabel.AutoSize = true;
-            this.GameOverLabel.Font = new System.Drawing.Font("Showcard Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GameOverLabel.Location = new System.Drawing.Point(22, 5);
+            this.GameOverLabel.Font = new System.Drawing.Font("Zilla Slab", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GameOverLabel.Location = new System.Drawing.Point(30, 5);
             this.GameOverLabel.Name = "GameOverLabel";
-            this.GameOverLabel.Size = new System.Drawing.Size(155, 30);
+            this.GameOverLabel.Size = new System.Drawing.Size(136, 29);
             this.GameOverLabel.TabIndex = 0;
             this.GameOverLabel.Text = "Game Over!";
             // 

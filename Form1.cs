@@ -1,6 +1,17 @@
+using System.Globalization;
 /// BUGS
 /// "refill in -1 turns"
-///     
+/// 
+/// Improvements
+/// add commas in score line
+/// highscore?
+/// 
+/// Feedback
+/// entire game revolves around 1 mega chain
+/// basically you just don't click one color and focus on making the biggest 1 color chain
+/// the way the points work you could do 100 5 group combos
+/// or 1 20 group combo and make millions more points with the latter
+/// probably needs a gameplay redesign 
 /// 
 namespace GridBreaker {
 
@@ -37,7 +48,35 @@ namespace GridBreaker {
                 }
 
                 GameOverPanel.Visible = true;
-                FinalScore.Text = totalpoints.ToString();
+
+                String score = totalpoints.ToString(); //convert score to a string
+                String format = "";                    //temp variable for formatting
+                int count = 0;                         //temp variable for formatting
+                
+                //add commas
+                for(int i = score.Count(); i > 0; i--) {
+                    format += score[i-1];
+                    count++;
+                    if(count == 3) {
+                        count = 0;
+                        format += ",";
+                    }
+                }
+
+                score = "";
+
+                //reverse
+                for(int i = format.Count(); i > 0; i--) {
+                    score += format[i-1];
+                }
+
+                //remove leading comma where score % 3 = 0
+                //it's ugly but easier than adding an exception to the logic above
+                if (score.Substring(0, 1) == ",") {
+                    score = score.Remove(0, 1);
+                }
+
+                FinalScore.Text = score;
                 this.Refresh();
             }
             else {
