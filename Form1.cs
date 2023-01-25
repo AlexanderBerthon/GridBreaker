@@ -3,8 +3,7 @@ using System.Globalization;
 /// "refill in -1 turns"
 /// 
 /// Improvements
-/// add commas in score line
-/// highscore?
+/// implement highscore menu?
 /// 
 /// Feedback
 /// entire game revolves around 1 mega chain
@@ -147,10 +146,15 @@ namespace GridBreaker {
                 turnPoints = 0;
                 label3.Text = "Score: "+totalpoints.ToString();
                 adjust();
-                if (count >= 0) {
+                if (count > 0) {
                     count--;
                     label1.Text = "Refill in: " + count % 2 + " moves";
-                    if (count % 2 == 0) {
+                    if (count == 0) {
+                        repopulate();
+                        label1.Text = "Refill in: " + 0 + " moves";
+                        label2.Text = 0 + " Refills remaining";
+                    }
+                    else if (count % 2 == 0) {
                         repopulate();
                         label1.Text = "Refill in: " + ((count % 2) + 2) + " moves";
                         label2.Text = count / 2 + " Refills remaining";
