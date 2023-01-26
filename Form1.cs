@@ -104,7 +104,7 @@ namespace GridBreaker {
 
             //randomly iterate through all buttons and assign them a random color?
             foreach(Button btn in btnArray) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btn.BackColor = Color.DarkOrange; break;
                     case 2: btn.BackColor = Color.DarkOrange; break;
@@ -115,7 +115,7 @@ namespace GridBreaker {
                     case 7: btn.BackColor = Color.Firebrick; break;
                     case 8: btn.BackColor = Color.Firebrick; break;
                     case 9: btn.BackColor = Color.Firebrick; break;
-                    case 10: btn.BackColor = Color.BlueViolet; break;
+                    //case 10: btn.BackColor = Color.BlueViolet; break;
                 }
             }
 
@@ -171,8 +171,8 @@ namespace GridBreaker {
         /// </summary>
         /// <param name="cell"></param> button cell to be compared
         private void destroy(Button cell) {
-            turnPoints += 1;
-            turnPoints = (int)Math.Floor(turnPoints * 1.5);
+            turnPoints += 5;
+            turnPoints = (int)Math.Floor(turnPoints * 1.05);
             String color = cell.BackColor.ToString();
             cell.BackColor = Color.White;
             this.Refresh();
@@ -237,7 +237,7 @@ namespace GridBreaker {
         /// </summary>
         private void repopulate() {
             for (int i = 0; i < 10; i++) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btnArray[i].BackColor = Color.DarkOrange; break;
                     case 2: btnArray[i].BackColor = Color.DarkOrange; break;
@@ -248,7 +248,7 @@ namespace GridBreaker {
                     case 7: btnArray[i].BackColor = Color.Firebrick; break;
                     case 8: btnArray[i].BackColor = Color.Firebrick; break;
                     case 9: btnArray[i].BackColor = Color.Firebrick; break;
-                    case 10: btnArray[i].BackColor = Color.BlueViolet; break;
+                    //case 10: btnArray[i].BackColor = Color.BlueViolet; break;
                 }
             }
 
@@ -277,7 +277,7 @@ namespace GridBreaker {
 
             //randomly iterate through all buttons and assign them a random color?
             foreach (Button btn in btnArray) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btn.BackColor = Color.DarkOrange; break;
                     case 2: btn.BackColor = Color.DarkOrange; break;
@@ -288,7 +288,7 @@ namespace GridBreaker {
                     case 7: btn.BackColor = Color.Firebrick; break;
                     case 8: btn.BackColor = Color.Firebrick; break;
                     case 9: btn.BackColor = Color.Firebrick; break;
-                    case 10: btn.BackColor = Color.BlueViolet; break;
+                    //case 10: btn.BackColor = Color.BlueViolet; break;
                 }
             }
 
