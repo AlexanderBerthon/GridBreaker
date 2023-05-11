@@ -1,17 +1,6 @@
 using System.Globalization;
-/// BUGS
-/// "refill in -1 turns"
-/// 
 /// Improvements
 /// implement highscore menu?
-/// 
-/// Feedback
-/// entire game revolves around 1 mega chain
-/// basically you just don't click one color and focus on making the biggest 1 color chain
-/// the way the points work you could do 100 5 group combos
-/// or 1 20 group combo and make millions more points with the latter
-/// probably needs a gameplay redesign 
-/// 
 namespace GridBreaker {
 
     /// <summary>
@@ -46,7 +35,7 @@ namespace GridBreaker {
                     btnArray[i].Enabled = false;
                 }
 
-                GameOverPanel.Visible = true;
+                highscorePanel.Visible = true;
 
                 String score = totalpoints.ToString(); //convert score to a string
                 String format = "";                    //temp variable for formatting
@@ -259,7 +248,7 @@ namespace GridBreaker {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ContinueButton_Click(object sender, EventArgs e) {
-            GameOverPanel.Visible = false;
+            highscorePanel.Visible = false;
 
             for (int i = 0; i < btnArray.Length; i++) {
                 btnArray[i].Enabled = true;
