@@ -1,17 +1,6 @@
 using System.Globalization;
-/// BUGS
-/// "refill in -1 turns"
-/// 
 /// Improvements
 /// implement highscore menu?
-/// 
-/// Feedback
-/// entire game revolves around 1 mega chain
-/// basically you just don't click one color and focus on making the biggest 1 color chain
-/// the way the points work you could do 100 5 group combos
-/// or 1 20 group combo and make millions more points with the latter
-/// probably needs a gameplay redesign 
-/// 
 namespace GridBreaker {
 
     /// <summary>
@@ -46,7 +35,7 @@ namespace GridBreaker {
                     btnArray[i].Enabled = false;
                 }
 
-                GameOverPanel.Visible = true;
+                highscorePanel.Visible = true;
 
                 String score = totalpoints.ToString(); //convert score to a string
                 String format = "";                    //temp variable for formatting
@@ -104,7 +93,7 @@ namespace GridBreaker {
 
             //randomly iterate through all buttons and assign them a random color?
             foreach(Button btn in btnArray) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btn.BackColor = Color.DarkOrange; break;
                     case 2: btn.BackColor = Color.DarkOrange; break;
@@ -115,7 +104,7 @@ namespace GridBreaker {
                     case 7: btn.BackColor = Color.Firebrick; break;
                     case 8: btn.BackColor = Color.Firebrick; break;
                     case 9: btn.BackColor = Color.Firebrick; break;
-                    case 10: btn.BackColor = Color.BlueViolet; break;
+                    //case 10: btn.BackColor = Color.BlueViolet; break;
                 }
             }
 
@@ -171,8 +160,8 @@ namespace GridBreaker {
         /// </summary>
         /// <param name="cell"></param> button cell to be compared
         private void destroy(Button cell) {
-            turnPoints += 1;
-            turnPoints = (int)Math.Floor(turnPoints * 1.5);
+            turnPoints += 5;
+            turnPoints = (int)Math.Floor(turnPoints * 1.05);
             String color = cell.BackColor.ToString();
             cell.BackColor = Color.White;
             this.Refresh();
@@ -237,7 +226,7 @@ namespace GridBreaker {
         /// </summary>
         private void repopulate() {
             for (int i = 0; i < 10; i++) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btnArray[i].BackColor = Color.DarkOrange; break;
                     case 2: btnArray[i].BackColor = Color.DarkOrange; break;
@@ -248,7 +237,7 @@ namespace GridBreaker {
                     case 7: btnArray[i].BackColor = Color.Firebrick; break;
                     case 8: btnArray[i].BackColor = Color.Firebrick; break;
                     case 9: btnArray[i].BackColor = Color.Firebrick; break;
-                    case 10: btnArray[i].BackColor = Color.BlueViolet; break;
+                    //case 10: btnArray[i].BackColor = Color.BlueViolet; break;
                 }
             }
 
@@ -259,7 +248,7 @@ namespace GridBreaker {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ContinueButton_Click(object sender, EventArgs e) {
-            GameOverPanel.Visible = false;
+            highscorePanel.Visible = false;
 
             for (int i = 0; i < btnArray.Length; i++) {
                 btnArray[i].Enabled = true;
@@ -277,7 +266,7 @@ namespace GridBreaker {
 
             //randomly iterate through all buttons and assign them a random color?
             foreach (Button btn in btnArray) {
-                int color = random.Next(1, 11);
+                int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btn.BackColor = Color.DarkOrange; break;
                     case 2: btn.BackColor = Color.DarkOrange; break;
@@ -288,7 +277,7 @@ namespace GridBreaker {
                     case 7: btn.BackColor = Color.Firebrick; break;
                     case 8: btn.BackColor = Color.Firebrick; break;
                     case 9: btn.BackColor = Color.Firebrick; break;
-                    case 10: btn.BackColor = Color.BlueViolet; break;
+                    //case 10: btn.BackColor = Color.BlueViolet; break;
                 }
             }
 
