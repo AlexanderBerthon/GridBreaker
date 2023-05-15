@@ -1,4 +1,6 @@
 using System.Globalization;
+using static System.Formats.Asn1.AsnWriter;
+using System.Text.RegularExpressions;
 /// Improvements
 /// implement highscore menu?
 namespace GridBreaker {
@@ -11,15 +13,17 @@ namespace GridBreaker {
     /// Aim for large combos but act quickly to utilize free refills and time limit 
     /// </summary>
     public partial class Form1 : Form {
-        //global variables :(
         Button[] btnArray = new Button[100];
         Random random = new Random();
-        int count = 20;
+        int count = 50;
         int totalpoints = 0;
         int turnPoints = 0;
 
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-        int clock = 30;
+        int clock = 300;
+
+        Highscore[] highScores;
+
 
         /// <summary>
         /// Function that controls the timer
@@ -35,36 +39,7 @@ namespace GridBreaker {
                     btnArray[i].Enabled = false;
                 }
 
-                highscorePanel.Visible = true;
-
-                String score = totalpoints.ToString(); //convert score to a string
-                String format = "";                    //temp variable for formatting
-                int count = 0;                         //temp variable for formatting
-                
-                //add commas
-                for(int i = score.Count(); i > 0; i--) {
-                    format += score[i-1];
-                    count++;
-                    if(count == 3) {
-                        count = 0;
-                        format += ",";
-                    }
-                }
-
-                score = "";
-
-                //reverse
-                for(int i = format.Count(); i > 0; i--) {
-                    score += format[i-1];
-                }
-
-                //remove leading comma where score % 3 = 0
-                //it's ugly but easier than adding an exception to the logic above
-                if (score.Substring(0, 1) == ",") {
-                    score = score.Remove(0, 1);
-                }
-
-                FinalScore.Text = score;
+                displayGameOver();
                 this.Refresh();
             }
             else {
@@ -91,8 +66,29 @@ namespace GridBreaker {
             timer.Tick += new EventHandler(TimerEventProcessor);
             flowLayoutPanel1.Controls.CopyTo(btnArray, 0);
 
+            //Initialize highscore variables
+            string[] inputData;
+            highScores = new Highscore[5];
+
+            //create the highscore file if it doesn't exist
+            if (!File.Exists("C:\\Users\\" + Environment.UserName + "\\Desktop\\GridBreaker_Highscores.txt")) {
+                string[] temp = { "Jeff 0", "Kenny 0", "Taylor 0", "Alex 0", "Martin 0" };
+                File.WriteAllLines("C:\\Users\\" + Environment.UserName + "\\Desktop\\GridBreaker_Highscores.txt", temp); //creates files and populates with dummy data
+            }
+
+            inputData = System.IO.File.ReadAllLines("C:\\Users\\" + Environment.UserName + "\\Desktop\\GridBreaker_Highscores.txt");
+
+            if (inputData.Length > 0) {
+                for (int i = 0; i < inputData.Length; i++) {
+                    string[] split = new string[2];
+                    split = inputData[i].Split(" ");
+                    highScores[i] = new Highscore(split[0], int.Parse(split[1]));
+                }
+            }
+
+
             //randomly iterate through all buttons and assign them a random color?
-            foreach(Button btn in btnArray) {
+            foreach (Button btn in btnArray) {
                 int color = random.Next(1, 10);
                 switch (color) {
                     case 1: btn.BackColor = Color.DarkOrange; break;
@@ -292,6 +288,144 @@ namespace GridBreaker {
         private void ExitButton_Click(object sender, EventArgs e) {
             Application.Exit();
         }
+
+        /// <summary>
+        /// Helper function to update highscore sheet
+        /// error checking on user input to ensure proper format
+        /// </summary>
+        private void confirmUserInputButton_Click(object sender, EventArgs e) {
+            String userInput = "";
+            Regex regex = new Regex("[0-9]");
+            if (newHighscoreTextbox.Text != null) {
+                userInput = newHighscoreTextbox.Text;
+
+                if (regex.IsMatch(userInput)) {
+                    userInputErrorLabel.Text = "Error: no numbers allowed";
+                    userInputErrorLabel.Visible = true;
+                }
+                else if (userInput.Contains(" ")) {
+                    userInputErrorLabel.Text = "Error: no spaces allowed";
+                    userInputErrorLabel.Visible = true;
+                }
+                else if (userInput.Length < 1) {
+                    userInputErrorLabel.Text = "Error: please enter a name";
+                    userInputErrorLabel.Visible = true;
+                }
+                else {
+                    //add new highscore to list
+                    /*
+                    //convert score into readable version
+                    String score = totalpoints.ToString(); //convert score to a string
+                    String format = "";                    //temp variable for formatting
+                    int count = 0;                         //temp variable for formatting
+
+                    //add commas
+                    for (int i = score.Count(); i > 0; i--) {
+                        format += score[i - 1];
+                        count++;
+                        if (count == 3) {
+                            count = 0;
+                            format += ",";
+                        }
+                    }
+
+                    score = "";
+
+                    //reverse
+                    for (int i = format.Count(); i > 0; i--) {
+                        score += format[i - 1];
+                    }
+
+                    //remove leading comma where score % 3 = 0
+                    //it's ugly but easier than adding an exception to the logic above
+                    if (score.Substring(0, 1) == ",") {
+                        score = score.Remove(0, 1);
+                    }
+                    */
+
+
+
+                    highScores[4] = new Highscore(newHighscoreTextbox.Text, totalpoints);
+
+                    Array.Sort(highScores, Highscore.SortScoreAcending());
+
+                    //close new highscore menu
+                    newHighscorePanel.Visible = false;
+
+                    //populate highscore board
+                    highscoreName1.Text = highScores[0].getName();
+                    highscoreName2.Text = highScores[1].getName();
+                    highscoreName3.Text = highScores[2].getName();
+                    highscoreName4.Text = highScores[3].getName();
+                    highscoreName5.Text = highScores[4].getName();
+                    highscore1.Text = highScores[0].getScore().ToString();
+                    highscore2.Text = highScores[1].getScore().ToString();
+                    highscore3.Text = highScores[2].getScore().ToString();
+                    highscore4.Text = highScores[3].getScore().ToString();
+                    highscore5.Text = highScores[4].getScore().ToString();
+
+                    //display highscore board
+                    highscorePanel.Visible = true;
+                    continueButton.Visible = true;
+                    exitButton.Visible = true;
+                    playAgainLabel.Visible = true;
+
+                    String[] temp = new string[5];
+
+                    //write to file
+                    for (int i = 0; i < 5; i++) {
+                        temp[i] = highScores[i].getName() + " " + highScores[i].getScore().ToString();
+                    }
+
+                    File.WriteAllLines("C:\\Users\\" + Environment.UserName + "\\Desktop\\Gridbreaker_Highscores.txt", temp);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Helper function that clears error message upon user interaction on text box
+        /// Prevents a permanent error message showing , makes it more clear that format is incorrect on multiple user attempts at adding a new highscore
+        /// </summary>
+        private void NewHighScoreTextBox_TextChanged(object sender, EventArgs e) {
+            userInputErrorLabel.Visible = false;
+        }
+
+        private void displayGameOver() {
+            Boolean newHighScore = false;
+
+            //check for new highscore
+            for (int i = 0; i < 5; i++) {
+                if (totalpoints >= highScores[i].getScore()) {
+                    newHighScore = true;
+                }
+            }
+
+            if (newHighScore) {
+                //display new highscore UI
+                newHighscorePanel.Visible = true;
+            }
+            else {
+                //populate highscore board
+                highscoreName1.Text = highScores[0].getName();
+                highscoreName2.Text = highScores[1].getName();
+                highscoreName3.Text = highScores[2].getName();
+                highscoreName4.Text = highScores[3].getName();
+                highscoreName5.Text = highScores[4].getName();
+                highscore1.Text = highScores[0].getScore().ToString();
+                highscore2.Text = highScores[1].getScore().ToString();
+                highscore3.Text = highScores[2].getScore().ToString();
+                highscore4.Text = highScores[3].getScore().ToString();
+                highscore5.Text = highScores[4].getScore().ToString();
+
+                //display gameover UI
+                highscorePanel.Visible = true;
+                playAgainLabel.Visible = true;
+                continueButton.Visible = true;
+                exitButton.Visible = true;
+            }
+        }
+
+
     }
 }
 
