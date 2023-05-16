@@ -20,7 +20,7 @@ namespace GridBreaker {
         int turnPoints = 0;
 
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-        int clock = 300;
+        int clock = 30;
 
         Highscore[] highScores;
 
@@ -157,7 +157,7 @@ namespace GridBreaker {
         /// <param name="cell"></param> button cell to be compared
         private void destroy(Button cell) {
             turnPoints += 5;
-            turnPoints = (int)Math.Floor(turnPoints * 1.05);
+            turnPoints = (int)Math.Floor(turnPoints * 1.025);
             String color = cell.BackColor.ToString();
             cell.BackColor = Color.White;
             this.Refresh();
@@ -250,7 +250,7 @@ namespace GridBreaker {
                 btnArray[i].Enabled = true;
             }
 
-            count = 20;
+            count = 50;
             totalpoints = 0;
             turnPoints = 0;
             clock = 30;
