@@ -1,17 +1,8 @@
 using System.Globalization;
 using static System.Formats.Asn1.AsnWriter;
 using System.Text.RegularExpressions;
-/// Improvements
-/// implement highscore menu?
-namespace GridBreaker {
 
-    /// <summary>
-    /// goal of the game is to get as many points as possible within 30 seconds
-    /// The grid will drop in new cells every 2 turns but only up to 10 times
-    /// the number of points you get scales exponentially with the number of cells you combo together
-    /// to get the highest score, a player must balance speed and strategy
-    /// Aim for large combos but act quickly to utilize free refills and time limit 
-    /// </summary>
+namespace GridBreaker {
     public partial class Form1 : Form {
         Button[] btnArray = new Button[100];
         Random random = new Random();
@@ -25,11 +16,7 @@ namespace GridBreaker {
         Highscore[] highScores;
 
 
-        /// <summary>
-        /// Function that controls the timer
-        /// </summary>
-        /// <param name="anObject"></param> The timer object
-        /// <param name="eventArgs"></param> The timer interval event
+        //Game clock
         private void TimerEventProcessor(Object anObject, EventArgs eventArgs) {
             clock--;
             if (clock <= 0) {
@@ -56,9 +43,6 @@ namespace GridBreaker {
             }
         }
 
-        /// <summary>
-        /// Form initialization. Initializes timer, button controls, and randomly creates the initial gameplay grid. 
-        /// </summary>
         public Form1() {
             InitializeComponent();
             timer.Interval = 1000;
@@ -87,7 +71,7 @@ namespace GridBreaker {
             }
 
 
-            //randomly iterate through all buttons and assign them a random color?
+            //randomly iterate through all buttons and assign them a random color
             foreach (Button btn in btnArray) {
                 int color = random.Next(1, 10);
                 switch (color) {
@@ -108,7 +92,6 @@ namespace GridBreaker {
             label2.Text = count / 2 + " Refills remaining";
         }
 
-        /// <summary>
         /// Button click event function.
         /// 
         /// This function is responsible for the majority of the gameplay logic and control
@@ -120,9 +103,6 @@ namespace GridBreaker {
         /// 
         /// Also contains control for the repopulate/refill function 
         /// by tracking the number of turns that have occured and refilling as needed
-        /// </summary>
-        /// <param name="sender"></param> Button object
-        /// <param name="e"></param> Button click event
         private void grid_Click(object sender, EventArgs e) {
             Button clicked = (Button)sender;
             if (clicked.BackColor != Color.White) {
@@ -148,13 +128,10 @@ namespace GridBreaker {
             }
         }
 
-        /// <summary>
         /// Recursive function responsible for clearing matching cells
         /// When a player clicks a colored cell on the grid, this function will check all adjacent cells
         /// Cells that match will be marked for deletion and similarly run through this function, checking those cells for matches as well.
         /// This creates a chain reaction that will destroy all matching adjacent tiles
-        /// </summary>
-        /// <param name="cell"></param> button cell to be compared
         private void destroy(Button cell) {
             turnPoints += 5;
             turnPoints = (int)Math.Floor(turnPoints * 1.025);
@@ -195,10 +172,8 @@ namespace GridBreaker {
             catch (IndexOutOfRangeException e) { }
         }
 
-        /// <summary>
         /// Function responsible for filling in holes in the grid caused by the destroy function
         /// moves cells down one if the cell below is empty, simulates gravity
-        /// </summary>
         private void adjust() {
             Boolean moving = true;
             while (moving) {
@@ -214,12 +189,10 @@ namespace GridBreaker {
             }
         }
 
-        /// <summary>
         /// Function responsible for the refill mechaninc
         /// randomly assigns colored cells to the top row when called
         /// these cells remain in the top row for one turn, before ajust is called to give the player a chance to react
         /// to the new incoming cells
-        /// </summary>
         private void repopulate() {
             for (int i = 0; i < 10; i++) {
                 int color = random.Next(1, 10);
@@ -236,13 +209,9 @@ namespace GridBreaker {
                     //case 10: btnArray[i].BackColor = Color.BlueViolet; break;
                 }
             }
-
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
+        //restart
         private void ContinueButton_Click(object sender, EventArgs e) {
             highscorePanel.Visible = false;
 
@@ -260,7 +229,7 @@ namespace GridBreaker {
             label3.Text = "0:30";
             label4.Text = "Score: 0";
 
-            //randomly iterate through all buttons and assign them a random color?
+            //randomly iterate through all buttons and assign them a random color
             foreach (Button btn in btnArray) {
                 int color = random.Next(1, 10);
                 switch (color) {
@@ -280,19 +249,13 @@ namespace GridBreaker {
             timer.Start();
         }
 
-        /// <summary>
         /// Exits the application when the button is clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ExitButton_Click(object sender, EventArgs e) {
             Application.Exit();
         }
 
-        /// <summary>
         /// Helper function to update highscore sheet
         /// error checking on user input to ensure proper format
-        /// </summary>
         private void confirmUserInputButton_Click(object sender, EventArgs e) {
             String userInput = "";
             Regex regex = new Regex("[0-9]");
@@ -312,39 +275,6 @@ namespace GridBreaker {
                     userInputErrorLabel.Visible = true;
                 }
                 else {
-                    //add new highscore to list
-                    /*
-                    //convert score into readable version
-                    String score = totalpoints.ToString(); //convert score to a string
-                    String format = "";                    //temp variable for formatting
-                    int count = 0;                         //temp variable for formatting
-
-                    //add commas
-                    for (int i = score.Count(); i > 0; i--) {
-                        format += score[i - 1];
-                        count++;
-                        if (count == 3) {
-                            count = 0;
-                            format += ",";
-                        }
-                    }
-
-                    score = "";
-
-                    //reverse
-                    for (int i = format.Count(); i > 0; i--) {
-                        score += format[i - 1];
-                    }
-
-                    //remove leading comma where score % 3 = 0
-                    //it's ugly but easier than adding an exception to the logic above
-                    if (score.Substring(0, 1) == ",") {
-                        score = score.Remove(0, 1);
-                    }
-                    */
-
-
-
                     highScores[4] = new Highscore(newHighscoreTextbox.Text, totalpoints);
 
                     Array.Sort(highScores, Highscore.SortScoreAcending());
@@ -382,10 +312,8 @@ namespace GridBreaker {
             }
         }
 
-        /// <summary>
         /// Helper function that clears error message upon user interaction on text box
-        /// Prevents a permanent error message showing , makes it more clear that format is incorrect on multiple user attempts at adding a new highscore
-        /// </summary>
+        /// Prevents a permanent error message showing and makes it more clear that format is incorrect on multiple user attempts at adding a new highscore
         private void NewHighScoreTextBox_TextChanged(object sender, EventArgs e) {
             userInputErrorLabel.Visible = false;
         }
