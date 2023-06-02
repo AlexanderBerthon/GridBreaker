@@ -1,24 +1,9 @@
 # GridBreaker
-<html>
-  <section>
-    <h4>I remember playing a game as a kid where you would click on a grid and try to chain like-color blocks together. The bigger the chain, the more points you would get.
-    I don't remember the name of the game, but this project will attempt to recreate it.</h2>
-  </section>
-  <section>
-    <ul><s>To Do for MVP:</s>
-      <ul><s>Create UI / gameboard design</s></ul>
-      <ul><s>Implement gameboard front end (button grid / layout / etc.)</s></ul>
-      <ul><s>Gameplay</s>
-        <ul><s>click action (destroy)</s></ul>
-        <ul><s>adjust function</s></ul>
-        <ul><s>repopulate function</s></ul>
-        <ul><s>random game board population</s></ul>
-  </section>
 
-  <section>
-  **This is meant to be a very basic to do list for the MVP. See code commits for more detailed documentation.** 
-  </section>
-</html>
+    /// goal of the game is to get as many points as possible within 30 seconds
+    /// The grid will drop in new cells every 2 turns but only a limited number of times
+    /// the number of points granted scales exponentially with the number of cells connected
+    /// balance speed and strategy
     
 
 
